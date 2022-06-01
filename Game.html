@@ -13,11 +13,13 @@
 
         var playerXpos = 360;
         var playerYpos = 450;
+
+        const PLAYER_SIZE = 20; // the players size
         
         
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // bg
-            colorRect(playerXpos, playerYpos, 20, 20, 'red'); //makes the player
+            colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red'); //makes the player
   
         }
         
