@@ -57,6 +57,9 @@
             if (evt.keyCode == DOWN_KEY){
                 downKeyPressed = true;
             }
+            if (evt.keyCode == UP_KEY){
+                upKeyPressed = true;
+            }
         }
 
             function keyReleased(evt) { // when key is released sets the key pressed to false
@@ -67,8 +70,11 @@
             if (evt.keyCode ==  LEFT_KEY){
                 leftKeyPressed = false;
             }
-            if(evt.keyCode ==  DOWN_KEY){
+            if (evt.keyCode ==  DOWN_KEY){
                 downKeyPressed = false;
+            }
+            if (evt.keyCode == UP_KEY){
+                upKeyPressed = false;
             }
         }
 
@@ -81,6 +87,9 @@
             }
             if (downKeyPressed){
                 playerYpos += playerYspeed;
+            }
+            if (upKeyPressed){
+                playerYpos -= playerYspeed;
             }
             } // end func
 
