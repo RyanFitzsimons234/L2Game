@@ -65,7 +65,7 @@
             if (rightKeyPressed && playerXpos < canvas.width*.965) {
                 playerXpos += playerXspeed; //creates a barrier to the right for the player 
             }
-            if (leftKeyPressed) {
+            if (leftKeyPressed && playerXpos > canvas.width*.005) {
                 playerXpos -= playerXspeed;
             }
             } // end func
