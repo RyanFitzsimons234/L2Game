@@ -54,6 +54,9 @@
             if (evt.keyCode == LEFT_KEY){
                 leftKeyPressed = true;
             }
+            if (evt.keyCode == DOWN_KEY){
+                downKeyPressed = true;
+            }
         }
 
             function keyReleased(evt) { // when key is released sets the key pressed to false
@@ -64,6 +67,9 @@
             if (evt.keyCode ==  LEFT_KEY){
                 leftKeyPressed = false;
             }
+            if(evt.keyCode ==  DOWN_KEY){
+                downKeyPressed = false;
+            }
         }
 
         function PlayerMove() {
@@ -72,6 +78,9 @@
             }
             if (leftKeyPressed && playerXpos > canvas.width*.005) {
                 playerXpos -= playerXspeed;
+            }
+            if (downKeyPressed){
+                playerYpos += playerYspeed;
             }
             } // end func
 
