@@ -8,25 +8,69 @@
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
 
+            document.addEventListener('keydown', keyPressed); //keyPressed = made function 
+            document.addEventListener('keyup', keyReleased); //keyReleased = made function 
+
             setInterval(mainloop, 1000 / 50);
         }
 
         var playerXpos = 360;
         var playerYpos = 450;
+        var playerXspeed = 5;
 
         const PLAYER_SIZE = 20; // the players size
+
+        const RIGHT_KEY = 39;
+        const LEFT_KEY = 37;
+
+        var rightKeyPressed = false;
+        var leftKeyPressed = false;
         
         
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // bg
             colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red'); //makes the player
   
-        }
-        
-         function colorRect(x,y,w,h,c){
+            PlayerMove()
+
+            function colorRect(x,y,w,h,c){
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x,y,w,h);
         }
+        }
+
+
+
+        function keyPressed(evt) { //when key is pressed sets the key pressed to true
+            console.log(evt.keyCode)
+            if (evt.keyCode == RIGHT_KEY) {
+                rightKeyPressed = true;
+            }
+            if (evt.keyCode == LEFT_KEY){
+                leftKeyPressed = true;
+            }
+        }
+
+            function keyReleased(evt) { // when key is released sets the key pressed to false
+            console.log(evt.keyCode)
+            if (evt.keyCode == RIGHT_KEY) {
+                rightKeyPressed = false;
+            }
+            if (evt.keyCode ==  LEFT_KEY){
+                leftKeyPressed = false;
+            }
+        }
+
+        function PlayerMove() {
+            if (rightKeyPressed && playerXpos < canvas.width*.965) {
+                playerXpos += playerXspeed; //creates a barrier to the right for the player 
+            }
+            if (leftKeyPressed) {
+                playerXpos -= playerXspeed;
+            }
+            } // end func
+
+
     
     </script>
 </body>
