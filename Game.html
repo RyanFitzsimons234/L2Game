@@ -1,10 +1,11 @@
 <!doctype html>
+
 <body>
     <canvas id="gameCanvas" width="600" height="600"></canvas>
     <script>
         var canvas, canvasContext;
 
-        window.onload = function() {
+        window.onload = function () {
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
 
@@ -19,6 +20,12 @@
         var playerXspeed = 5;
         var playerYspeed = 5;
 
+        var ENEMY_WIDTH = 50;
+        var ENEMY_HEIGHT = 200;
+        var enemyYpos = 500;
+        var enemyXpos = 500;
+        var enemyXspeed = 5;
+
         const PLAYER_SIZE = 20; // the players size
 
         const RIGHT_KEY = 39;
@@ -30,18 +37,28 @@
         var leftKeyPressed = false;
         var downKeyPressed = false;
         var upKeyPressed = false;
-        
-        
-        function mainloop() {
-            colorRect(0,0,canvas.width,canvas.height,'black'); // bg
-            colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red'); //makes the player
-  
-            PlayerMove()
 
-            function colorRect(x,y,w,h,c){
-            canvasContext.fillStyle = c;
-            canvasContext.fillRect(x,y,w,h);
-        }
+
+
+
+        function mainloop() {
+            colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
+            colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red'); //makes the player
+            colorRect(enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT, 'blue');
+
+
+            // DrawEnemy();
+            PlayerMove();
+            EnemyMove();
+
+
+
+            function colorRect(x, y, w, h, c) {
+                canvasContext.fillStyle = c;
+                canvasContext.fillRect(x, y, w, h);
+
+            }
+
         }
 
 
@@ -51,49 +68,62 @@
             if (evt.keyCode == RIGHT_KEY) {
                 rightKeyPressed = true;
             }
-            if (evt.keyCode == LEFT_KEY){
+            if (evt.keyCode == LEFT_KEY) {
                 leftKeyPressed = true;
             }
-            if (evt.keyCode == DOWN_KEY){
+            if (evt.keyCode == DOWN_KEY) {
                 downKeyPressed = true;
             }
-            if (evt.keyCode == UP_KEY){
+            if (evt.keyCode == UP_KEY) {
                 upKeyPressed = true;
             }
-        }
+        } //end func
 
-            function keyReleased(evt) { // when key is released sets the key pressed to false
+        function keyReleased(evt) { // when key is released sets the key pressed to false
             console.log(evt.keyCode)
             if (evt.keyCode == RIGHT_KEY) {
                 rightKeyPressed = false;
             }
-            if (evt.keyCode ==  LEFT_KEY){
+            if (evt.keyCode == LEFT_KEY) {
                 leftKeyPressed = false;
             }
-            if (evt.keyCode ==  DOWN_KEY){
+            if (evt.keyCode == DOWN_KEY) {
                 downKeyPressed = false;
             }
-            if (evt.keyCode == UP_KEY){
+            if (evt.keyCode == UP_KEY) {
                 upKeyPressed = false;
             }
-        }
+        } //end func
 
         function PlayerMove() {
-            if (rightKeyPressed && playerXpos < canvas.width*.965) {
+            if (rightKeyPressed && playerXpos < canvas.width * .965) {
                 playerXpos += playerXspeed; //creates a barrier to the right for the player 
             }
-            if (leftKeyPressed && playerXpos > canvas.width*.005) {
+            if (leftKeyPressed && playerXpos > canvas.width * .005) {
                 playerXpos -= playerXspeed;
             }
-            if (downKeyPressed && playerYpos < canvas.height*.965){
+            if (downKeyPressed && playerYpos < canvas.height * .965) {
                 playerYpos += playerYspeed;
             }
-            if (upKeyPressed && playerYpos > canvas.height*.005){
+            if (upKeyPressed && playerYpos > canvas.height * .005) {
                 playerYpos -= playerYspeed;
             }
-            } // end func
+        } // end 
+
+        function MakeEnemy() { // gets all info for each enemy and pushes into array
 
 
-    
+
+            // function EnemyMove() {
+            //     enemyXpos -= enemyXspeed;
+            //     if (enemyXpos < -50)
+            //         enemyXpos = 1000; //moves enemies across the screen
+            // } // end func
+
+
+
+
+
+        }
     </script>
 </body>
