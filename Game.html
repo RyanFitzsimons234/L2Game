@@ -111,19 +111,28 @@
         } // end 
 
         function MakeEnemy() { // gets all info for each enemy and pushes into array
-
-
-
-            // function EnemyMove() {
-            //     enemyXpos -= enemyXspeed;
-            //     if (enemyXpos < -50)
-            //         enemyXpos = 1000; //moves enemies across the screen
-            // } // end func
-
-
-
-
-
         }
+
+
+            function EnemyMove() {
+                enemyXpos -= enemyXspeed;
+                if (enemyXpos < -50)
+                    enemyXpos = 1000; //moves enemies across the screen
+
+                    if (enemyXpos < playerXpos + PLAYER_SIZE &&
+                        enemyXpos + ENEMY_WIDTH > playerXpos &&
+                        enemyYpos < playerYpos + PLAYER_SIZE &&
+                        enemyYpos + ENEMY_HEIGHT > playerYpos) {
+
+                        alert("you lose");
+                        // playing = false; // when player is touching enemies kill the player
+                    }
+                }; // end func
+
+
+
+
+
+        
     </script>
 </body>
