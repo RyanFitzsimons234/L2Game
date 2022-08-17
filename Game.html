@@ -1,6 +1,8 @@
 <!doctype html>
 
 <body>
+
+
     <canvas id="gameCanvas" width="600" height="600"></canvas>
     <script>
         var canvas, canvasContext;
@@ -15,6 +17,9 @@
             setInterval(mainloop, 1000 / 50);
         }
 
+
+
+
         var playerXpos = 360;
         var playerYpos = 450;
         var playerXspeed = 5;
@@ -22,8 +27,8 @@
 
         var ENEMY_WIDTH = 50;
         var ENEMY_HEIGHT = 200;
-        var enemyYpos = 500;
-        var enemyXpos = 500;
+        var enemyYpos = 700;
+        var enemyXpos = 300;
         var enemyXspeed = 5;
 
         const PLAYER_SIZE = 20; // the players size
@@ -38,11 +43,14 @@
         var downKeyPressed = false;
         var upKeyPressed = false;
 
+        var background1 = new Image();
+        background1.src = "Images/background1.png"
+
 
 
 
         function mainloop() {
-            colorRect(0, 0, canvas.width, canvas.height, 'black'); // bg
+            drawImg(background1, 0, 0, canvas.width, canvas.height); // bg
             colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red'); //makes the player
             colorRect(enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT, 'blue');
 
@@ -50,7 +58,7 @@
             // DrawEnemy();
             PlayerMove();
             EnemyMove();
-
+        }
 
 
             function colorRect(x, y, w, h, c) {
@@ -58,8 +66,23 @@
                 canvasContext.fillRect(x, y, w, h);
 
             }
+            function drawImg(src,x,y,w,h){
+            canvasContext.drawImage(src,x,y,w,h)
+            }
 
-        }
+        
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -115,9 +138,9 @@
 
 
             function EnemyMove() {
-                enemyXpos -= enemyXspeed;
-                if (enemyXpos < -50)
-                    enemyXpos = 1000; //moves enemies across the screen
+                enemyYpos -= enemyXspeed;
+                if (enemyYpos < -50)
+                    enemyYpos = 1000; //moves enemies across the screen
 
                     if (enemyXpos < playerXpos + PLAYER_SIZE &&
                         enemyXpos + ENEMY_WIDTH > playerXpos &&
@@ -128,11 +151,5 @@
                         // playing = false; // when player is touching enemies kill the player
                     }
                 }; // end func
-
-
-
-
-
-        
     </script>
 </body>
