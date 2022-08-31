@@ -5,11 +5,12 @@
 
     <canvas id="gameCanvas" width="600" height="600"></canvas>
     <script>
-        var canvas, canvasContext;
+        var canvas, canvasContext, imageAssests;
 
         window.onload = function () {
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
+            imageAssests = loadImgAssests();
 
             document.addEventListener('keydown', keyPressed); //keyPressed = made function 
             document.addEventListener('keyup', keyReleased); //keyReleased = made function 
@@ -20,8 +21,7 @@
 
 
 
-        var playerXpos = 360;
-        var playerYpos = 450;
+
         var playerXspeed = 5;
         var playerYspeed = 5;
 
@@ -44,35 +44,78 @@
         var upKeyPressed = false;
 
         var background1 = new Image();
-        background1.src = "Images/background1.png"
+        background1.src = "Images/background1.png";
 
+        var enemy1= new Image();
+        enemy1.src = "Images/enemy1.png";
 
+        var playerXsource = 0;
+        var playerYsource = 0;
+        const PLAYER_WIDTH= 148; // the players size
+        const PLAYER_HEIGHT= 100; // the players size
+        var playerXpos = 360;
+        var playerYpos = 450;
 
+        var  playerSpriteArray = [];
+        const PLAYER_SPRITES = 8;
+        var playerSpriteNum = 0;  
+        var playerSpriteSheetCols = 0;
 
         function mainloop() {
             drawImg(background1, 0, 0, canvas.width, canvas.height); // bg
-            colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red'); //makes the player
-            colorRect(enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT, 'blue');
+            drawImg(enemy1, enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT);
+            drawSprite(imageAssests.player, playerXsource, playerYsource, PLAYER_WIDTH, PLAYER_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH , PLAYER_HEIGHT);
 
+            playerAnimation();
 
-            // DrawEnemy();
             PlayerMove();
             EnemyMove();
         }
 
+        function loadImgAssests(){
+                imgs = {};
 
-            function colorRect(x, y, w, h, c) {
-                canvasContext.fillStyle = c;
-                canvasContext.fillRect(x, y, w, h);
+                imgs.player = new Image();
+                imgs.player.src = "images/player1.png";
 
+                return imgs;
             }
+
+            for(i=0; i< PLAYER_SPRITES; i++){
+                playerSpriteArray[i] = new Array(2);
+                playerSpriteArray[i][0]= PLAYER_WIDTH * (i % 4);
+                // console.log(playerSpriteArray[i][0]);
+
+                if(i != 0 && i%4 == 0){
+                    playerSpriteSheetCols++;
+                }
+                playerSpriteArray[i][1]= PLAYER_HEIGHT * playerSpriteSheetCols;
+                console.log(playerSpriteArray[i]);
+            }
+
+            function playerAnimation(){
+                playerXsource = playerSpriteArray[playerSpriteNum][0];
+                playerYsource = playerSpriteArray[playerSpriteNum][1];
+
+                playerSpriteNum++;
+
+                if(playerSpriteNum > 7){
+                    playerSpriteNum = 0;
+
+                }
+            }
+
+
+            
+            function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){
+                canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
+            }
+
+
+
             function drawImg(src,x,y,w,h){
             canvasContext.drawImage(src,x,y,w,h)
             }
-
-        
-
-
 
 
 
@@ -142,14 +185,17 @@
                 if (enemyYpos < -50)
                     enemyYpos = 1000; //moves enemies across the screen
 
-                    if (enemyXpos < playerXpos + PLAYER_SIZE &&
-                        enemyXpos + ENEMY_WIDTH > playerXpos &&
-                        enemyYpos < playerYpos + PLAYER_SIZE &&
-                        enemyYpos + ENEMY_HEIGHT > playerYpos) {
 
-                        alert("you lose");
-                        // playing = false; // when player is touching enemies kill the player
+                    if (enemyXpos < playerXpos + PLAYER_WIDTH &&
+                        enemyXpos + ENEMY_WIDTH > playerXpos &&
+                        enemyYpos < playerYpos + PLAYER_HEIGHT &&
+                        enemyYpos + ENEMY_HEIGHT > playerYpos){
+                            alert("you lose")
+                        }
+
+
+                    //     // playing = false; // when player is touching enemies kill the player
                     }
-                }; // end func
+                ; // end func
     </script>
 </body>
