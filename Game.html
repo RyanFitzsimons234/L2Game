@@ -18,15 +18,16 @@
             setInterval(mainloop, 1000 / 50);
         }
 
-
-
+        var username = '';
+        while (username == '' || username == null) {
+            username = prompt('what is your name?') //asks user for a name
+        } // end func
 
 
         var playerXspeed = 5;
         var playerYspeed = 5;
 
-        var ENEMY_WIDTH = 30;
-        var ENEMY_HEIGHT = 200;
+
         var enemyYpos = 700;
         var enemyXpos = 300;
         var enemyXspeed = 5;
@@ -46,27 +47,37 @@
         var background1 = new Image();
         background1.src = "Images/background1.png";
 
-        var enemy1= new Image();
+        var enemy1 = new Image();
         enemy1.src = "Images/enemy1.png";
 
         var playerXsource = 0;
         var playerYsource = 0;
-        const PLAYER_WIDTH= 148; // the players size
-        const PLAYER_HEIGHT= 100; // the players size
+        const PLAYER_WIDTH = 148; // the players size
+        const PLAYER_HEIGHT = 100; // the players size
         var playerXpos = 360;
         var playerYpos = 450;
-        const PLAYERAWIDTH= 74; // the players size
-        const PLAYERAHEIGHT= 50; // the players size   
+        const PLAYERAWIDTH = 74; // the players size
+        const PLAYERAHEIGHT = 50; // the players size   
 
-        var  playerSpriteArray = [];
+        var playerSpriteArray = [];
         const PLAYER_SPRITES = 8;
-        var playerSpriteNum = 0;  
+        var playerSpriteNum = 0;
         var playerSpriteSheetCols = 0;
+
+        var enemies = [];
+        var score = 0;
+        var starting = true;
+        var playing = true;
+        var enemyCounter = 0;
+        var ENEMY_WIDTH = 30;
+        var ENEMY_HEIGHT = 200;
+
 
         function mainloop() {
             drawImg(background1, 0, 0, canvas.width, canvas.height); // bg
             drawImg(enemy1, enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT);
-            drawSprite(imageAssests.player, playerXsource, playerYsource, PLAYER_WIDTH, PLAYER_HEIGHT, playerXpos, playerYpos, PLAYERAWIDTH , PLAYERAHEIGHT);
+            drawSprite(imageAssests.player, playerXsource, playerYsource, PLAYER_WIDTH, PLAYER_HEIGHT, playerXpos,
+                playerYpos, PLAYERAWIDTH, PLAYERAHEIGHT);
 
             playerAnimation();
 
@@ -74,59 +85,50 @@
             EnemyMove();
         }
 
-        function loadImgAssests(){
-                imgs = {};
+        function loadImgAssests() {
+            imgs = {};
 
-                imgs.player = new Image();
-                imgs.player.src = "images/player1.png";
+            imgs.player = new Image();
+            imgs.player.src = "images/player1.png";
 
-                return imgs;
+            return imgs;
+        }
+
+        for (i = 0; i < PLAYER_SPRITES; i++) {
+            playerSpriteArray[i] = new Array(2);
+            playerSpriteArray[i][0] = PLAYER_WIDTH * (i % 4);
+            // console.log(playerSpriteArray[i][0]);
+
+            if (i != 0 && i % 4 == 0) {
+                playerSpriteSheetCols++;
             }
+            playerSpriteArray[i][1] = PLAYER_HEIGHT * playerSpriteSheetCols;
+            console.log(playerSpriteArray[i]);
+        }
 
-            for(i=0; i< PLAYER_SPRITES; i++){
-                playerSpriteArray[i] = new Array(2);
-                playerSpriteArray[i][0]= PLAYER_WIDTH * (i % 4);
-                // console.log(playerSpriteArray[i][0]);
+        function playerAnimation() {
+            playerXsource = playerSpriteArray[playerSpriteNum][0];
+            playerYsource = playerSpriteArray[playerSpriteNum][1];
 
-                if(i != 0 && i%4 == 0){
-                    playerSpriteSheetCols++;
-                }
-                playerSpriteArray[i][1]= PLAYER_HEIGHT * playerSpriteSheetCols;
-                console.log(playerSpriteArray[i]);
+            playerSpriteNum++;
+
+            if (playerSpriteNum > 7) {
+                playerSpriteNum = 0;
+
             }
-
-            function playerAnimation(){
-                playerXsource = playerSpriteArray[playerSpriteNum][0];
-                playerYsource = playerSpriteArray[playerSpriteNum][1];
-
-                playerSpriteNum++;
-
-                if(playerSpriteNum > 7){
-                    playerSpriteNum = 0;
-
-                }
-            }
-
-
-            
-            function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH){
-                canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
-            }
+        }
 
 
 
-            function drawImg(src,x,y,w,h){
-            canvasContext.drawImage(src,x,y,w,h)
-            }
+        function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+            canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
+        }
 
 
 
-
-
-
-
-
-
+        function drawImg(src, x, y, w, h) {
+            canvasContext.drawImage(src, x, y, w, h)
+        }
 
 
 
@@ -178,26 +180,76 @@
             }
         } // end 
 
+
+        function EnemyMove() {
+            enemyYpos -= enemyXspeed;
+            if (enemyYpos < -50)
+                enemyYpos = 1000; //moves enemies across the screen
+
+
+            // if (enemyXpos < playerXpos + PLAYERAWIDTH &&
+            //     enemyXpos + ENEMY_WIDTH > playerXpos &&
+            //     enemyYpos < playerYpos + PLAYERAHEIGHT &&
+            //     enemyYpos + ENEMY_HEIGHT > playerYpos) {
+            //     alert("you lose")
+            // }
+            //     // playing = false; // when player is touching enemies kill the player
+        }; // end func
+
+
+        function drawEnemy() {
+            enemies.forEach(function (e, i, array) {
+                drawImg(enemy1, e.enemyXpos, e.enemyYpos, e.ENEMY_WIDTH, e.ENEMY_HEIGHT);
+            }); //loops through array draws the enemy
+        } // end func
+
         function MakeEnemy() { // gets all info for each enemy and pushes into array
+            drawImg(enemy1, enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT);
+
         }
 
 
-            function EnemyMove() {
-                enemyYpos -= enemyXspeed;
-                if (enemyYpos < -50)
-                    enemyYpos = 1000; //moves enemies across the screen
 
 
-                    if (enemyXpos < playerXpos + PLAYERAWIDTH &&
-                        enemyXpos + ENEMY_WIDTH > playerXpos &&
-                        enemyYpos < playerYpos + PLAYERAHEIGHT &&
-                        enemyYpos + ENEMY_HEIGHT > playerYpos){
-                            alert("you lose")
-                        }
+        var enemyCounter = 0;
+
+        function makeEnemy() { // gets all info for each enemy and pushes into array
+            var ENEMY_WIDTH = 30;
+            var ENEMY_HEIGHT = 200;
+            var enemyYpos = Math.floor(Math.random() * (canvas.height - ENEMY_HEIGHT));
+            var enemyXpos = canvas.width + enemyCounter * (ENEMY_WIDTH * 3); //sets enemy at random position
 
 
-                    //     // playing = false; // when player is touching enemies kill the player
-                    }
-                ; // end func
+            enemyCounter++;
+
+            var enemy = { //gives enemy object values
+                enemyYpos: enemyYpos,
+                enemyXpos: enemyXpos,
+                ENEMY_WIDTH: ENEMY_WIDTH,
+                ENEMY_HEIGHT: ENEMY_HEIGHT,
+                enemyXspeed: enemyXspeed
+            }
+            enemies.push(enemy); //pushes the clones into an array
+
+        } // end func
+
+        function enemymove() {
+            enemies.forEach(function (e, i, array) {
+
+                e.enemyXpos -= e.enemyXspeed;
+                if (e.enemyXpos < 0) {
+                    e.enemyXpos = canvas.width - e.ENEMY_WIDTH
+                    e.enemyXspeed = Math.floor(Math.random(i) * (enemyXspeed - 5) + 5);
+                    score++; //sets enemy clones a random speed that's near the original speed
+                }
+
+                if (e.enemyXpos < playerXpos + PLAYER_WIDTH &&
+                    e.enemyXpos + e.ENEMY_WIDTH > playerXpos &&
+                    e.enemyYpos < playerYpos + PLAYER_HEIGHT &&
+                    e.enemyYpos + e.ENEMY_HEIGHT > playerYpos) {
+                    playing = false; // when player is touching enemies kill the player
+                }
+            });
+        } // end func
     </script>
 </body>
