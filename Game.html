@@ -34,6 +34,21 @@
                 //convert difficulty to lower case 'EaSy'
             }
         } // end func
+        
+        if (diffculty == 'easy') {
+            enemyYspeed = 5;
+        }
+
+        if (diffculty == 'medium') {
+            enemyYspeed = 10;
+        }
+
+        if (diffculty == 'hard') {
+            enemyYspeed = 15;
+        }
+        if (diffculty == 'asian') {
+            enemyYspeed = 50;
+        } //changes enemyYspeed to a value based on difficulty
 
 
         var playerXspeed = 5;
@@ -42,7 +57,6 @@
 
         var enemyYpos = 700;
         var enemyXpos = 300;
-        var enemyXspeed = 5;
 
         const PLAYER_SIZE = 20; // the players size
 
@@ -194,7 +208,7 @@
 
 
         function EnemyMove() {
-            enemyYpos -= enemyXspeed;
+            enemyYpos -= enemyYspeed;
             if (enemyYpos < -50)
                 enemyYpos = 1000; //moves enemies across the screen
 
@@ -239,7 +253,7 @@
                 enemyXpos: enemyXpos,
                 ENEMY_WIDTH: ENEMY_WIDTH,
                 ENEMY_HEIGHT: ENEMY_HEIGHT,
-                enemyXspeed: enemyXspeed
+                enemyYspeed: enemyYspeed
             }
             enemies.push(enemy); //pushes the clones into an array
 
@@ -248,10 +262,10 @@
         function enemymove() {
             enemies.forEach(function (e, i, array) {
 
-                e.enemyXpos -= e.enemyXspeed;
+                e.enemyYpos -= e.enemyYspeed;
                 if (e.enemyXpos < 0) {
                     e.enemyXpos = canvas.width - e.ENEMY_WIDTH
-                    e.enemyXspeed = Math.floor(Math.random(i) * (enemyXspeed - 5) + 5);
+                    e.enemyYspeed = Math.floor(Math.random(i) * (enemyYspeed - 5) + 5);
                     score++; //sets enemy clones a random speed that's near the original speed
                 }
 
