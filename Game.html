@@ -23,6 +23,18 @@
             username = prompt('what is your name?') //asks user for a name
         } // end func
 
+        var diffculty = '';
+        var pass = false;
+
+        while (pass == false) {
+            diffculty = prompt('how hard do you want it?', 'easy, medium or hard')
+            diffculty = diffculty.toLowerCase()
+            if (diffculty == 'easy' || diffculty == 'medium' || diffculty == 'hard' || diffculty == 'asian') {
+                pass = true;
+                //convert difficulty to lower case 'EaSy'
+            }
+        } // end func
+
 
         var playerXspeed = 5;
         var playerYspeed = 5;
@@ -52,12 +64,12 @@
 
         var playerXsource = 0;
         var playerYsource = 0;
-        const PLAYER_WIDTH = 148; // the players size
-        const PLAYER_HEIGHT = 100; // the players size
+        const PLAYER_WIDTH = 148; // the players size within the sprite sheet
+        const PLAYER_HEIGHT = 100; // the players size within the sprite sheet
         var playerXpos = 360;
         var playerYpos = 450;
-        const PLAYERAWIDTH = 74; // the players size
-        const PLAYERAHEIGHT = 50; // the players size   
+        const PLAYERAWIDTH = 74; // the players size seen by the player
+        const PLAYERAHEIGHT = 50; // the players size seen by the player
 
         var playerSpriteArray = [];
         const PLAYER_SPRITES = 8;
