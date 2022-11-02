@@ -37,28 +37,33 @@
 
         if (diffculty == 'easy') {
             enemyYspeed = 5;
+            playerXspeed = 5;
+            playerYspeed = 5;
         }
 
         if (diffculty == 'medium') {
-            enemyYspeed = 10;
+            enemyYspeed = 7.5;
+            playerXspeed = 7.5;
+            playerYspeed = 7.5;
         }
 
         if (diffculty == 'hard') {
-            enemyYspeed = 15;
+            enemyYspeed = 10;
+            playerXspeed = 10;
+            playerYspeed = 10;
         }
         if (diffculty == 'asian') {
-            enemyYspeed = 50;
+            enemyYspeed = 20;
+            playerXspeed = 10;
+            playerYspeed = 10;
         } //changes enemyYspeed to a value based on difficulty
 
 
-        var playerXspeed = 5;
-        var playerYspeed = 5;
+
 
 
         var enemyYpos = 1000;
         var enemyXpos = 300;
-
-        const PLAYER_SIZE = 20; // the players size
 
         const RIGHT_KEY = 39;
         const LEFT_KEY = 37;
@@ -117,7 +122,9 @@
             PlayerMove();
             EnemyMove();
             drawEnemy();
-        }
+            colorText('score: ' + score, 10, 20, '20px Arial', 'white') //allows the user to see the score
+        } 
+        
 
         function loadImgAssests() {
             imgs = {};
@@ -272,5 +279,11 @@
                 }
             });
         } // end func
+
+            function colorText(msg, x, y, f, c) { // creates a colored text with parameters 
+                canvasContext.font = f;
+                canvasContext.fillStyle = c;
+                canvasContext.fillText(msg, x, y);
+            } //end func
     </script>
 </body>
