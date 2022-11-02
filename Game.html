@@ -34,31 +34,36 @@
                 //convert difficulty to lower case 'EaSy'
             }
         } // end func
-        
+
         if (diffculty == 'easy') {
             enemyYspeed = 5;
+            playerXspeed = 5;
+            playerYspeed = 5;
         }
 
         if (diffculty == 'medium') {
-            enemyYspeed = 10;
+            enemyYspeed = 7.5;
+            playerXspeed = 7.5;
+            playerYspeed = 7.5;
         }
 
         if (diffculty == 'hard') {
-            enemyYspeed = 15;
+            enemyYspeed = 10;
+            playerXspeed = 10;
+            playerYspeed = 10;
         }
         if (diffculty == 'asian') {
-            enemyYspeed = 50;
+            enemyYspeed = 20;
+            playerXspeed = 10;
+            playerYspeed = 10;
         } //changes enemyYspeed to a value based on difficulty
 
 
-        var playerXspeed = 5;
-        var playerYspeed = 5;
 
 
-        var enemyYpos = 700;
+
+        var enemyYpos = 1000;
         var enemyXpos = 300;
-
-        const PLAYER_SIZE = 20; // the players size
 
         const RIGHT_KEY = 39;
         const LEFT_KEY = 37;
@@ -80,8 +85,8 @@
         var playerYsource = 0;
         const PLAYER_WIDTH = 148; // the players size within the sprite sheet
         const PLAYER_HEIGHT = 100; // the players size within the sprite sheet
-        var playerXpos = 360;
-        var playerYpos = 450;
+        var playerXpos = 200;
+        var playerYpos = 300;
         const PLAYERAWIDTH = 74; // the players size seen by the player
         const PLAYERAHEIGHT = 50; // the players size seen by the player
 
@@ -105,11 +110,21 @@
             drawSprite(imageAssests.player, playerXsource, playerYsource, PLAYER_WIDTH, PLAYER_HEIGHT, playerXpos,
                 playerYpos, PLAYERAWIDTH, PLAYERAHEIGHT);
 
-            playerAnimation();
+            if (starting) {
+                enemyXpos = canvas.width / 2;
+                for (var i = 0; i < 10; i++) { //max of ten enemies
+                    makeEnemy();
+                } // makes enemies
+                starting = false;
+            }
 
+            playerAnimation();
             PlayerMove();
             EnemyMove();
-        }
+            drawEnemy();
+            colorText('score: ' + score, 10, 20, '20px Arial', 'white') //allows the user to see the score
+        } 
+        
 
         function loadImgAssests() {
             imgs = {};
@@ -144,20 +159,13 @@
             }
         }
 
-
-
         function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
             canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
         }
 
-
-
         function drawImg(src, x, y, w, h) {
             canvasContext.drawImage(src, x, y, w, h)
         }
-
-
-
 
         function keyPressed(evt) { //when key is pressed sets the key pressed to true
             console.log(evt.keyCode)
@@ -192,13 +200,13 @@
         } //end func
 
         function PlayerMove() {
-            if (rightKeyPressed && playerXpos < canvas.width * .965) {
+            if (rightKeyPressed && playerXpos < canvas.width * .87) {
                 playerXpos += playerXspeed; //creates a barrier to the right for the player 
             }
             if (leftKeyPressed && playerXpos > canvas.width * .005) {
                 playerXpos -= playerXspeed;
             }
-            if (downKeyPressed && playerYpos < canvas.height * .965) {
+            if (downKeyPressed && playerYpos < canvas.height * .8) {
                 playerYpos += playerYspeed;
             }
             if (upKeyPressed && playerYpos > canvas.height * .005) {
@@ -207,20 +215,20 @@
         } // end 
 
 
-        function EnemyMove() {
-            enemyYpos -= enemyYspeed;
-            if (enemyYpos < -50)
-                enemyYpos = 1000; //moves enemies across the screen
+        // function EnemyMove() {
+        //     enemyYpos -= enemyYspeed;
+        //     if (enemyYpos < -50)
+        //         enemyYpos = 1000; //moves enemies across the screen
 
 
-            // if (enemyXpos < playerXpos + PLAYERAWIDTH &&
-            //     enemyXpos + ENEMY_WIDTH > playerXpos &&
-            //     enemyYpos < playerYpos + PLAYERAHEIGHT &&
-            //     enemyYpos + ENEMY_HEIGHT > playerYpos) {
-            //     alert("you lose")
-            // }
-            //     // playing = false; // when player is touching enemies kill the player
-        }; // end func
+        //     if (enemyXpos < playerXpos + PLAYERAWIDTH &&
+        //         enemyXpos + ENEMY_WIDTH > playerXpos &&
+        //         enemyYpos < playerYpos + PLAYERAHEIGHT &&
+        //         enemyYpos + ENEMY_HEIGHT > playerYpos) {
+        //         alert("you lose")
+        //     }
+        //     playing = false; // when player is touching enemies kill the player
+        // }; // end func
 
 
         function drawEnemy() {
@@ -229,21 +237,13 @@
             }); //loops through array draws the enemy
         } // end func
 
-        function MakeEnemy() { // gets all info for each enemy and pushes into array
-            drawImg(enemy1, enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT);
-
-        }
-
-
-
-
-        var enemyCounter = 0;
+        var enemyCounter = 5;
 
         function makeEnemy() { // gets all info for each enemy and pushes into array
             var ENEMY_WIDTH = 30;
             var ENEMY_HEIGHT = 200;
-            var enemyYpos = Math.floor(Math.random() * (canvas.height - ENEMY_HEIGHT));
-            var enemyXpos = canvas.width + enemyCounter * (ENEMY_WIDTH * 3); //sets enemy at random position
+            var enemyXpos = Math.floor(Math.random() * (canvas.width- ENEMY_WIDTH));
+            var enemyYpos = canvas.height + enemyCounter * (ENEMY_HEIGHT * 3); //sets enemy at random position
 
 
             enemyCounter++;
@@ -259,13 +259,15 @@
 
         } // end func
 
-        function enemymove() {
+        function EnemyMove() {
             enemies.forEach(function (e, i, array) {
 
                 e.enemyYpos -= e.enemyYspeed;
-                if (e.enemyXpos < 0) {
-                    e.enemyXpos = canvas.width - e.ENEMY_WIDTH
+                if (e.enemyYpos < -500) {
+                    // e.enemyYpos = canvas.height - e.ENEMY_HEIGHT 
+                    e.enemyXpos = Math.floor(Math.random() * (600-1)-1);
                     e.enemyYspeed = Math.floor(Math.random(i) * (enemyYspeed - 5) + 5);
+                    e.enemyYpos = 1000
                     score++; //sets enemy clones a random speed that's near the original speed
                 }
 
@@ -277,5 +279,11 @@
                 }
             });
         } // end func
+
+            function colorText(msg, x, y, f, c) { // creates a colored text with parameters 
+                canvasContext.font = f;
+                canvasContext.fillStyle = c;
+                canvasContext.fillText(msg, x, y);
+            } //end func
     </script>
 </body>
