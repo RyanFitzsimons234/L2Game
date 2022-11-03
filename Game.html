@@ -105,6 +105,7 @@
 
 
         function mainloop() {
+            if (playing){
             drawImg(background1, 0, 0, canvas.width, canvas.height); // bg
             drawImg(enemy1, enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT);
             drawSprite(imageAssests.player, playerXsource, playerYsource, PLAYER_WIDTH, PLAYER_HEIGHT, playerXpos,
@@ -123,6 +124,9 @@
             EnemyMove();
             drawEnemy();
             colorText('score: ' + score, 10, 20, '20px Arial', 'white') //allows the user to see the score
+        } else {
+            colorRect(0, 0, canvas.width, canvas.height, 'red');
+        }
         } 
         
 
@@ -271,9 +275,9 @@
                     score++; //sets enemy clones a random speed that's near the original speed
                 }
 
-                if (e.enemyXpos < playerXpos + PLAYER_WIDTH &&
+                if (e.enemyXpos < playerXpos + PLAYERAWIDTH &&
                     e.enemyXpos + e.ENEMY_WIDTH > playerXpos &&
-                    e.enemyYpos < playerYpos + PLAYER_HEIGHT &&
+                    e.enemyYpos < playerYpos + PLAYERAHEIGHT &&
                     e.enemyYpos + e.ENEMY_HEIGHT > playerYpos) {
                     playing = false; // when player is touching enemies kill the player
                 }
@@ -285,5 +289,9 @@
                 canvasContext.fillStyle = c;
                 canvasContext.fillText(msg, x, y);
             } //end func
+            function colorRect(x, y, w, h, c) { // creates a colored rectangle with parameters 
+                canvasContext.fillStyle = c;
+                canvasContext.fillRect(x, y, w, h);
+            } //end func`
     </script>
 </body>
