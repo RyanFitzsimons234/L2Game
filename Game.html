@@ -1,8 +1,10 @@
 <!doctype html>
 
+
+<head>
+    <title>Budget Flappy Bird</title>
+</head>
 <body>
-
-
     <canvas id="gameCanvas" width="600" height="600"></canvas>
     <script>
         var canvas, canvasContext, imageAssests;
@@ -27,44 +29,52 @@
         var pass = false;
 
         while (pass == false) {
-            diffculty = prompt('how hard do you want it?', 'easy, medium or hard')
+            diffculty = prompt('how hard do you want it?', 'hard, quite hard or unbelievably hard')
             diffculty = diffculty.toLowerCase()
-            if (diffculty == 'easy' || diffculty == 'medium' || diffculty == 'hard' || diffculty == 'asian') {
+            if (diffculty == 'hard' || diffculty == 'quite hard' || diffculty == 'unbelievably hard' || diffculty == 'asian hard') {
                 pass = true;
                 //convert difficulty to lower case 'EaSy'
             }
         } // end func
 
-        if (diffculty == 'easy') {
+        if (diffculty == 'hard') {
             enemyYspeed = 5;
             playerXspeed = 5;
             playerYspeed = 5;
+            enemyYpos = 700;
+            enemyXpos = 300;
         }
 
-        if (diffculty == 'medium') {
+        if (diffculty == 'quite hard') {
             enemyYspeed = 7.5;
             playerXspeed = 7.5;
             playerYspeed = 7.5;
+            enemyYpos = 750;
+            enemyXpos = 300;
         }
 
-        if (diffculty == 'hard') {
+        if (diffculty == 'unbelievably hard') {
             enemyYspeed = 10;
             playerXspeed = 10;
             playerYspeed = 10;
+            enemyYpos = 800;
+            enemyXpos = 300;
         }
-        if (diffculty == 'asian') {
+        if (diffculty == 'asian hard') {
             enemyYspeed = 20;
             playerXspeed = 10;
             playerYspeed = 10;
+            enemyYpos = 1000;
+            enemyXpos = 300;
         } //changes enemyYspeed to a value based on difficulty
 
+        alert("Move the bird using the arrow keys, dodge the poles to gain points and try to survive as long as possible");
 
 
 
 
-        var enemyYpos = 1000;
+
         var enemyXpos = 300;
-
         const RIGHT_KEY = 39;
         const LEFT_KEY = 37;
         const DOWN_KEY = 40;
@@ -218,23 +228,6 @@
             }
         } // end 
 
-
-        // function EnemyMove() {
-        //     enemyYpos -= enemyYspeed;
-        //     if (enemyYpos < -50)
-        //         enemyYpos = 1000; //moves enemies across the screen
-
-
-        //     if (enemyXpos < playerXpos + PLAYERAWIDTH &&
-        //         enemyXpos + ENEMY_WIDTH > playerXpos &&
-        //         enemyYpos < playerYpos + PLAYERAHEIGHT &&
-        //         enemyYpos + ENEMY_HEIGHT > playerYpos) {
-        //         alert("you lose")
-        //     }
-        //     playing = false; // when player is touching enemies kill the player
-        // }; // end func
-
-
         function drawEnemy() {
             enemies.forEach(function (e, i, array) {
                 drawImg(enemy1, e.enemyXpos, e.enemyYpos, e.ENEMY_WIDTH, e.ENEMY_HEIGHT);
@@ -271,7 +264,7 @@
                     // e.enemyYpos = canvas.height - e.ENEMY_HEIGHT 
                     e.enemyXpos = Math.floor(Math.random() * (600-1)-1);
                     e.enemyYspeed = Math.floor(Math.random(i) * (enemyYspeed - 5) + 5);
-                    e.enemyYpos = 1000
+                    e.enemyYpos=enemyYpos
                     score++; //sets enemy clones a random speed that's near the original speed
                 }
 
