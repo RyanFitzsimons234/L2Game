@@ -39,32 +39,39 @@
             enemyYspeed = 5;
             playerXspeed = 5;
             playerYspeed = 5;
+            enemyYpos = 700;
+            enemyXpos = 300;
         }
 
         if (diffculty == 'medium') {
             enemyYspeed = 7.5;
             playerXspeed = 7.5;
             playerYspeed = 7.5;
+            enemyYpos = 750;
+            enemyXpos = 300;
         }
 
         if (diffculty == 'hard') {
             enemyYspeed = 10;
             playerXspeed = 10;
             playerYspeed = 10;
+            enemyYpos = 800;
+            enemyXpos = 300;
         }
         if (diffculty == 'asian') {
             enemyYspeed = 20;
             playerXspeed = 10;
             playerYspeed = 10;
+            enemyYpos = 1000;
+            enemyXpos = 300;
         } //changes enemyYspeed to a value based on difficulty
 
 
 
 
 
-        var enemyYpos = 1000;
-        var enemyXpos = 300;
 
+        var enemyXpos = 300;
         const RIGHT_KEY = 39;
         const LEFT_KEY = 37;
         const DOWN_KEY = 40;
@@ -271,7 +278,7 @@
                     // e.enemyYpos = canvas.height - e.ENEMY_HEIGHT 
                     e.enemyXpos = Math.floor(Math.random() * (600-1)-1);
                     e.enemyYspeed = Math.floor(Math.random(i) * (enemyYspeed - 5) + 5);
-                    e.enemyYpos = 1000
+                    e.enemyYpos=enemyYpos
                     score++; //sets enemy clones a random speed that's near the original speed
                 }
 
