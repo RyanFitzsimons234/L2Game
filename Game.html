@@ -1,8 +1,10 @@
 <!doctype html>
 
+
+<head>
+    <title>Budget Flappy Bird</title>
+</head>
 <body>
-
-
     <canvas id="gameCanvas" width="600" height="600"></canvas>
     <script>
         var canvas, canvasContext, imageAssests;
@@ -27,15 +29,15 @@
         var pass = false;
 
         while (pass == false) {
-            diffculty = prompt('how hard do you want it?', 'easy, medium or hard')
+            diffculty = prompt('how hard do you want it?', 'hard, quite hard or unbelievably hard')
             diffculty = diffculty.toLowerCase()
-            if (diffculty == 'easy' || diffculty == 'medium' || diffculty == 'hard' || diffculty == 'asian') {
+            if (diffculty == 'hard' || diffculty == 'quite hard' || diffculty == 'unbelievably hard' || diffculty == 'asian hard') {
                 pass = true;
                 //convert difficulty to lower case 'EaSy'
             }
         } // end func
 
-        if (diffculty == 'easy') {
+        if (diffculty == 'hard') {
             enemyYspeed = 5;
             playerXspeed = 5;
             playerYspeed = 5;
@@ -43,7 +45,7 @@
             enemyXpos = 300;
         }
 
-        if (diffculty == 'medium') {
+        if (diffculty == 'quite hard') {
             enemyYspeed = 7.5;
             playerXspeed = 7.5;
             playerYspeed = 7.5;
@@ -51,14 +53,14 @@
             enemyXpos = 300;
         }
 
-        if (diffculty == 'hard') {
+        if (diffculty == 'unbelievably hard') {
             enemyYspeed = 10;
             playerXspeed = 10;
             playerYspeed = 10;
             enemyYpos = 800;
             enemyXpos = 300;
         }
-        if (diffculty == 'asian') {
+        if (diffculty == 'asian hard') {
             enemyYspeed = 20;
             playerXspeed = 10;
             playerYspeed = 10;
@@ -66,6 +68,7 @@
             enemyXpos = 300;
         } //changes enemyYspeed to a value based on difficulty
 
+        alert("Move the bird using the arrow keys, dodge the poles to gain points and try to survive as long as possible");
 
 
 
@@ -224,23 +227,6 @@
                 playerYpos -= playerYspeed;
             }
         } // end 
-
-
-        // function EnemyMove() {
-        //     enemyYpos -= enemyYspeed;
-        //     if (enemyYpos < -50)
-        //         enemyYpos = 1000; //moves enemies across the screen
-
-
-        //     if (enemyXpos < playerXpos + PLAYERAWIDTH &&
-        //         enemyXpos + ENEMY_WIDTH > playerXpos &&
-        //         enemyYpos < playerYpos + PLAYERAHEIGHT &&
-        //         enemyYpos + ENEMY_HEIGHT > playerYpos) {
-        //         alert("you lose")
-        //     }
-        //     playing = false; // when player is touching enemies kill the player
-        // }; // end func
-
 
         function drawEnemy() {
             enemies.forEach(function (e, i, array) {
