@@ -136,6 +136,7 @@
             colorText('score: ' + score, 10, 20, '20px Arial', 'white') //allows the user to see the score
         } else {
             colorRect(0, 0, canvas.width, canvas.height, 'red');
+            colorText('You scored ' + score, 100, 50, '40px Arial', 'black') //changes screen when player dies
         }
         } 
         
@@ -261,7 +262,6 @@
 
                 e.enemyYpos -= e.enemyYspeed;
                 if (e.enemyYpos < -500) {
-                    // e.enemyYpos = canvas.height - e.ENEMY_HEIGHT 
                     e.enemyXpos = Math.floor(Math.random() * (600-1)-1);
                     e.enemyYspeed = Math.floor(Math.random(i) * (enemyYspeed - 5) + 5);
                     e.enemyYpos=enemyYpos
