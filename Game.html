@@ -29,15 +29,15 @@
         var pass = false;
 
         while (pass == false) {
-            diffculty = prompt('how hard do you want it?', 'hard, quite hard or unbelievably hard')
+            diffculty = prompt('how hard do you want it?', 'easy, medium or hard')
             diffculty = diffculty.toLowerCase()
-            if (diffculty == 'hard' || diffculty == 'quite hard' || diffculty == 'unbelievably hard' || diffculty == 'asian hard') {
+            if (diffculty == 'easy' || diffculty == 'medium' || diffculty == 'hard' || diffculty == 'asian') {
                 pass = true;
                 //convert difficulty to lower case 'EaSy'
             }
         } // end func
 
-        if (diffculty == 'hard') {
+        if (diffculty == 'easy') {
             enemyYspeed = 5;
             playerXspeed = 5;
             playerYspeed = 5;
@@ -45,7 +45,7 @@
             enemyXpos = 300;
         }
 
-        if (diffculty == 'quite hard') {
+        if (diffculty == 'medium') {
             enemyYspeed = 7.5;
             playerXspeed = 7.5;
             playerYspeed = 7.5;
@@ -53,14 +53,14 @@
             enemyXpos = 300;
         }
 
-        if (diffculty == 'unbelievably hard') {
+        if (diffculty == 'hard') {
             enemyYspeed = 10;
             playerXspeed = 10;
             playerYspeed = 10;
             enemyYpos = 800;
             enemyXpos = 300;
         }
-        if (diffculty == 'asian hard') {
+        if (diffculty == 'asian') {
             enemyYspeed = 20;
             playerXspeed = 10;
             playerYspeed = 10;
@@ -136,6 +136,7 @@
             colorText('score: ' + score, 10, 20, '20px Arial', 'white') //allows the user to see the score
         } else {
             colorRect(0, 0, canvas.width, canvas.height, 'red');
+            colorText('You scored ' + score, 100, 50, '40px Arial', 'black') //changes screen when player dies
         }
         } 
         
@@ -261,7 +262,6 @@
 
                 e.enemyYpos -= e.enemyYspeed;
                 if (e.enemyYpos < -500) {
-                    // e.enemyYpos = canvas.height - e.ENEMY_HEIGHT 
                     e.enemyXpos = Math.floor(Math.random() * (600-1)-1);
                     e.enemyYspeed = Math.floor(Math.random(i) * (enemyYspeed - 5) + 5);
                     e.enemyYpos=enemyYpos
