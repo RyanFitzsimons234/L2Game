@@ -21,7 +21,7 @@
         }
 
         var username = '';
-        while (username == '' || username == null) {
+        while (username == '' || username == null || username.length>10) {
             username = prompt('what is your name?') //asks user for a name
         } // end func
 
@@ -29,49 +29,87 @@
         var pass = false;
 
         while (pass == false) {
-            diffculty = prompt('how hard do you want it?', 'hard, quite hard or unbelievably hard')
+            diffculty = prompt('how hard do you want it?', '1 = easy, 2 = medium or 3 = hard')
             diffculty = diffculty.toLowerCase()
-            if (diffculty == 'hard' || diffculty == 'quite hard' || diffculty == 'unbelievably hard' || diffculty == 'asian hard') {
+            if (diffculty == '1'|| diffculty == '2' || diffculty == '3' || diffculty == '4' || diffculty == 'easy' || diffculty == 'medium' || diffculty == 'hard' || diffculty == 'asian') {
                 pass = true;
                 //convert difficulty to lower case 'EaSy'
             }
         } // end func
 
-        if (diffculty == 'hard') {
+        if (diffculty == '1') {
             enemyYspeed = 5;
             playerXspeed = 5;
             playerYspeed = 5;
-            enemyYpos = 700;
+            enemyYpos = 1000;
             enemyXpos = 300;
+            diffcultyname = 'easy';
         }
 
-        if (diffculty == 'quite hard') {
+        if (diffculty == 'easy') {
+            enemyYspeed = 5;
+            playerXspeed = 5;
+            playerYspeed = 5;
+            enemyYpos = 1000;
+            enemyXpos = 300;
+            diffcultyname = 'easy';
+        }
+
+        if (diffculty == '2') {
             enemyYspeed = 7.5;
             playerXspeed = 7.5;
             playerYspeed = 7.5;
-            enemyYpos = 750;
+            enemyYpos = 900;
             enemyXpos = 300;
+            diffcultyname = 'medium';
         }
 
-        if (diffculty == 'unbelievably hard') {
-            enemyYspeed = 10;
-            playerXspeed = 10;
-            playerYspeed = 10;
-            enemyYpos = 800;
+        if (diffculty == 'medium') {
+            enemyYspeed = 7.5;
+            playerXspeed = 7.5;
+            playerYspeed = 7.5;
+            enemyYpos = 900;
             enemyXpos = 300;
+            diffcultyname = 'medium';
         }
-        if (diffculty == 'asian hard') {
-            enemyYspeed = 20;
+
+        if (diffculty == '3') {
+            enemyYspeed = 10;
             playerXspeed = 10;
             playerYspeed = 10;
             enemyYpos = 1000;
             enemyXpos = 300;
-        } //changes enemyYspeed to a value based on difficulty
+            diffcultyname = 'hard';
+        }
 
-        alert("Move the bird using the arrow keys, dodge the poles to gain points and try to survive as long as possible");
+        if (diffculty == 'hard') {
+            enemyYspeed = 10;
+            playerXspeed = 10;
+            playerYspeed = 10;
+            enemyYpos = 1000;
+            enemyXpos = 300;
+            diffcultyname = 'hard';
+        }
 
+        if (diffculty == '4') {
+            enemyYspeed = 20;
+            playerXspeed = 10;
+            playerYspeed = 10;
+            enemyYpos = 1500;
+            enemyXpos = 300;
+            diffcultyname = 'asian';
+        }        
+        
+        if (diffculty == 'asian') {
+            enemyYspeed = 20;
+            playerXspeed = 10;
+            playerYspeed = 10;
+            enemyYpos = 1500;
+            enemyXpos = 300;
+            diffcultyname = 'asian';
+        } //changes enemyYspeed, playerXspeed, playerYspeed and enemy position to values based on difficulty
 
-
+        alert("Move the bird using the arrow keys, dodge the poles to gain points and try to survive as long as possible.");
 
 
         var enemyXpos = 300;
@@ -136,7 +174,7 @@
             colorText('score: ' + score, 10, 20, '20px Arial', 'white') //allows the user to see the score
         } else {
             colorRect(0, 0, canvas.width, canvas.height, 'red');
-            colorText(username +',you scored ' + score, 100, 50, '40px Arial', 'black') //changes screen when player dies
+            colorText(username +', you scored ' + score + ' on the '+ diffcultyname +' difficulty', 100, 50, '20px Arial', 'black') //changes screen when player dies
         }
         } 
         
@@ -235,15 +273,11 @@
             }); //loops through array draws the enemy
         } // end func
 
-        var enemyCounter = 5;
-
         function makeEnemy() { // gets all info for each enemy and pushes into array
             var ENEMY_WIDTH = 30;
             var ENEMY_HEIGHT = 200;
             var enemyXpos = Math.floor(Math.random() * (canvas.width- ENEMY_WIDTH));
             var enemyYpos = canvas.height + enemyCounter * (ENEMY_HEIGHT * 3); //sets enemy at random position
-
-
             enemyCounter++;
 
             var enemy = { //gives enemy object values
