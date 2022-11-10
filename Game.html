@@ -1,6 +1,5 @@
 <!doctype html>
 
-
 <head>
     <title>Budget Flappy Bird</title>
 </head>
@@ -22,7 +21,7 @@
 
         var username = '';
         while (username == '' || username == null || username.length>10) {
-            username = prompt('what is your name?') //asks user for a name
+            username = prompt('what is your name?' + ' Must be less than 10 characters') //asks user for a name
         } // end func
 
         var diffculty = '';
@@ -129,6 +128,9 @@
         var enemy1 = new Image();
         enemy1.src = "Images/enemy1.png";
 
+        var endscreen1 = new Image();
+        endscreen1.src = "Images/endscreen1.png";
+
         var playerXsource = 0;
         var playerYsource = 0;
         const PLAYER_WIDTH = 148; // the players size within the sprite sheet
@@ -158,6 +160,7 @@
             drawImg(enemy1, enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT);
             drawSprite(imageAssests.player, playerXsource, playerYsource, PLAYER_WIDTH, PLAYER_HEIGHT, playerXpos,
                 playerYpos, PLAYERAWIDTH, PLAYERAHEIGHT);
+            
 
             if (starting) {
                 enemyXpos = canvas.width / 2;
@@ -173,8 +176,9 @@
             drawEnemy();
             colorText('score: ' + score, 10, 20, '20px Arial', 'white') //allows the user to see the score
         } else {
-            colorRect(0, 0, canvas.width, canvas.height, 'red');
-            colorText(username +', you scored ' + score + ' on the '+ diffcultyname +' difficulty', 100, 50, '20px Arial', 'black') //changes screen when player dies
+            drawImg(endscreen1, 0, 0, canvas.width*1.5, canvas.height);
+            colorRect(25, 25, 550, 35, 'black');
+            colorText(username +', you scored ' + score + ' on the '+ diffcultyname +' difficulty', 50, 50, '22.5px Corbel', 'red') //changes screen when player dies
         }
         } 
         
@@ -311,14 +315,15 @@
             });
         } // end func
 
+        function colorRect(x, y, w, h, c) { // creates a colored rectangle with parameters 
+                canvasContext.fillStyle = c;
+                canvasContext.fillRect(x, y, w, h);
+            } //end func
+
             function colorText(msg, x, y, f, c) { // creates a colored text with parameters 
                 canvasContext.font = f;
                 canvasContext.fillStyle = c;
                 canvasContext.fillText(msg, x, y);
             } //end func
-            function colorRect(x, y, w, h, c) { // creates a colored rectangle with parameters 
-                canvasContext.fillStyle = c;
-                canvasContext.fillRect(x, y, w, h);
-            } //end func`
     </script>
 </body>
