@@ -3,6 +3,7 @@
 <head>
     <title>Budget Flappy Bird</title>
 </head>
+
 <body>
     <canvas id="gameCanvas" width="600" height="600"></canvas>
     <script>
@@ -20,19 +21,20 @@
         }
 
         var username = '';
-        while (username == '' || username == null || username.length>10) {
+        while (username == '' || username == null || username.length > 10) {
             username = prompt('what is your name?' + ' Must be less than 10 characters') //asks user for a name
         } // end func
 
         var diffculty = '';
-        var pass = false;
+        var pass = false; // doesn't let the player pass the questions until they answer them
 
         while (pass == false) {
             diffculty = prompt('how hard do you want it?', '1 = easy, 2 = medium or 3 = hard')
-            diffculty = diffculty.toLowerCase()
-            if (diffculty == '1'|| diffculty == '2' || diffculty == '3' || diffculty == '4' || diffculty == 'easy' || diffculty == 'medium' || diffculty == 'hard' || diffculty == 'asian') {
-                pass = true;
-                //convert difficulty to lower case 'EaSy'
+            diffculty = diffculty.toLowerCase() //convert difficulty to lower case 'EaSy'
+            if (diffculty == '1' || diffculty == '2' || diffculty == '3' || diffculty == '4' || diffculty == 'easy' ||
+                diffculty == 'medium' || diffculty == 'hard' || diffculty == 'asian') {
+                pass = true; //if player answers correctly they pass the question and starting playing
+
             }
         } // end func
 
@@ -43,7 +45,7 @@
             enemyYpos = 1000;
             enemyXpos = 300;
             diffcultyname = 'easy';
-        }
+        } //changes enemyYspeed, playerXspeed, playerYspeed and enemy position to values based on difficulty
 
         if (diffculty == 'easy') {
             enemyYspeed = 5;
@@ -52,7 +54,7 @@
             enemyYpos = 1000;
             enemyXpos = 300;
             diffcultyname = 'easy';
-        }
+        } //changes enemyYspeed, playerXspeed, playerYspeed and enemy position to values based on difficulty
 
         if (diffculty == '2') {
             enemyYspeed = 7.5;
@@ -61,7 +63,7 @@
             enemyYpos = 900;
             enemyXpos = 300;
             diffcultyname = 'medium';
-        }
+        } //changes enemyYspeed, playerXspeed, playerYspeed and enemy position to values based on difficulty
 
         if (diffculty == 'medium') {
             enemyYspeed = 7.5;
@@ -70,7 +72,7 @@
             enemyYpos = 900;
             enemyXpos = 300;
             diffcultyname = 'medium';
-        }
+        } //changes enemyYspeed, playerXspeed, playerYspeed and enemy position to values based on difficulty
 
         if (diffculty == '3') {
             enemyYspeed = 10;
@@ -79,7 +81,7 @@
             enemyYpos = 1000;
             enemyXpos = 300;
             diffcultyname = 'hard';
-        }
+        } //changes enemyYspeed, playerXspeed, playerYspeed and enemy position to values based on difficulty
 
         if (diffculty == 'hard') {
             enemyYspeed = 10;
@@ -88,7 +90,7 @@
             enemyYpos = 1000;
             enemyXpos = 300;
             diffcultyname = 'hard';
-        }
+        } //changes enemyYspeed, playerXspeed, playerYspeed and enemy position to values based on difficulty
 
         if (diffculty == '4') {
             enemyYspeed = 20;
@@ -97,8 +99,8 @@
             enemyYpos = 1500;
             enemyXpos = 300;
             diffcultyname = 'asian';
-        }        
-        
+        } //changes enemyYspeed, playerXspeed, playerYspeed and enemy position to values based on difficulty  
+
         if (diffculty == 'asian') {
             enemyYspeed = 20;
             playerXspeed = 10;
@@ -108,121 +110,120 @@
             diffcultyname = 'asian';
         } //changes enemyYspeed, playerXspeed, playerYspeed and enemy position to values based on difficulty
 
-        alert("Move the bird using the arrow keys, dodge the poles to gain points and try to survive as long as possible.");
+        alert(
+            "Move the bird using the arrow keys, dodge the poles to gain points and try to survive as long as possible."
+        );
 
-
-        var enemyXpos = 300;
         const RIGHT_KEY = 39;
         const LEFT_KEY = 37;
         const DOWN_KEY = 40;
-        const UP_KEY = 38;
+        const UP_KEY = 38; //the numbers for each pressable key 
 
         var rightKeyPressed = false;
         var leftKeyPressed = false;
         var downKeyPressed = false;
-        var upKeyPressed = false;
+        var upKeyPressed = false; //meaning the player starts off with having no keys pressed
 
         var background1 = new Image();
-        background1.src = "Images/background1.png";
+        background1.src = "Images/background1.png"; //inserts the background image for gameplay
 
         var enemy1 = new Image();
-        enemy1.src = "Images/enemy1.png";
+        enemy1.src = "Images/enemy1.png"; //inserts the enemy sprite
 
         var endscreen1 = new Image();
-        endscreen1.src = "Images/endscreen1.png";
+        endscreen1.src = "Images/endscreen1.png"; //inserts the background image for the death screen
 
-        var playerXsource = 0;
-        var playerYsource = 0;
+        var playerXsource = 0; // starting X cordinate on the spritesheet
+        var playerYsource = 0; // starting Y cordinate on the spritesheet
         const PLAYER_WIDTH = 148; // the players size within the sprite sheet
         const PLAYER_HEIGHT = 100; // the players size within the sprite sheet
-        var playerXpos = 200;
-        var playerYpos = 300;
+        var playerXpos = 200; // Where the player starts on the canvas
+        var playerYpos = 300; // Where the player starts on the canvas
         const PLAYERAWIDTH = 74; // the players size seen by the player
         const PLAYERAHEIGHT = 50; // the players size seen by the player
 
-        var playerSpriteArray = [];
-        const PLAYER_SPRITES = 8;
-        var playerSpriteNum = 0;
-        var playerSpriteSheetCols = 0;
+        var playerSpriteArray = []; // the array for the sprites
+        const PLAYER_SPRITES = 8; // the amount of sprites in the spritesheet
+        var playerSpriteNum = 0; // what sprite to start on, on the spritesheet
+        var playerSpriteSheetCols = 0; //what row the selected sprite is on the spritesheet
+        var aniFrameRate = .4; //how fast the sprites change
 
-        var enemies = [];
-        var score = 0;
-        var starting = true;
-        var playing = true;
-        var enemyCounter = 0;
-        var ENEMY_WIDTH = 30;
-        var ENEMY_HEIGHT = 200;
+        var enemies = []; // array for the enemies
+        var score = 0; // starts the score at 0 
+        var starting = true; //makes the enemies spawn
+        var playing = true; //allows the player to move
+        var enemyCounter = 0; //makes the amount of enemies start at 0 
 
+        var enemyXpos = 300; // sets enemy horizontal position
+        var ENEMY_WIDTH = 30; // sets enemy width
+        var ENEMY_HEIGHT = 200; // sets enemy height
 
         function mainloop() {
-            if (playing){
-            drawImg(background1, 0, 0, canvas.width, canvas.height); // bg
-            drawImg(enemy1, enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT);
-            drawSprite(imageAssests.player, playerXsource, playerYsource, PLAYER_WIDTH, PLAYER_HEIGHT, playerXpos,
-                playerYpos, PLAYERAWIDTH, PLAYERAHEIGHT);
-            
+            if (playing) {
+                drawImg(background1, 0, 0, canvas.width, canvas.height); // makes the canvas
+                drawImg(enemy1, enemyXpos, enemyYpos, ENEMY_WIDTH, ENEMY_HEIGHT); // makes the enemy
+                drawSprite(imageAssests.player, playerXsource, playerYsource, PLAYER_WIDTH, PLAYER_HEIGHT, playerXpos,
+                    playerYpos, PLAYERAWIDTH, PLAYERAHEIGHT); // makes the player
 
-            if (starting) {
-                enemyXpos = canvas.width / 2;
-                for (var i = 0; i < 10; i++) { //max of ten enemies
-                    makeEnemy();
-                } // makes enemies
-                starting = false;
+                if (starting) {
+                    enemyXpos = canvas.width / 2;
+                    for (var i = 0; i < 10; i++) { //max of ten enemies
+                        makeEnemy();
+                    } // makes enemy duplicates
+                    starting = false; // stops the enemyies from duplicating further
+                } // end func
+
+                playerAnimation();
+                PlayerMove();
+                EnemyMove();
+                drawEnemy();
+                colorText('score: ' + score, 10, 20, '20px Arial', 'white') //allows the user to see the score
+            } else {
+                drawImg(endscreen1, 0, 0, canvas.width * 1.6, canvas.height); // makes the death screen
+                colorRect(25, 25, 550, 35, 'black'); //makes a black background for the player's stats
+                colorText(username + ', you scored ' + score + ' on the ' + diffcultyname + ' difficulty', 50, 50,
+                    '22.5px Corbel', 'red') //shows the player's stats
             }
-
-            playerAnimation();
-            PlayerMove();
-            EnemyMove();
-            drawEnemy();
-            colorText('score: ' + score, 10, 20, '20px Arial', 'white') //allows the user to see the score
-        } else {
-            drawImg(endscreen1, 0, 0, canvas.width*1.5, canvas.height);
-            colorRect(25, 25, 550, 35, 'black');
-            colorText(username +', you scored ' + score + ' on the '+ diffcultyname +' difficulty', 50, 50, '22.5px Corbel', 'red') //changes screen when player dies
-        }
-        } 
-        
+        } //end func 
 
         function loadImgAssests() {
-            imgs = {};
-
+            imgs = {}; // array of the player sprites
             imgs.player = new Image();
             imgs.player.src = "images/player1.png";
-
             return imgs;
-        }
+        } //end func
 
         for (i = 0; i < PLAYER_SPRITES; i++) {
-            playerSpriteArray[i] = new Array(2);
-            playerSpriteArray[i][0] = PLAYER_WIDTH * (i % 4);
-            // console.log(playerSpriteArray[i][0]);
+            playerSpriteArray[i] = new Array(2); //
+            playerSpriteArray[i][0] = PLAYER_WIDTH * (i % 4); //spites horizontal position on the sprite sheet
 
             if (i != 0 && i % 4 == 0) {
-                playerSpriteSheetCols++;
+                playerSpriteSheetCols++; //moves which sprite is used off the sprite sheet down a row
             }
             playerSpriteArray[i][1] = PLAYER_HEIGHT * playerSpriteSheetCols;
-            console.log(playerSpriteArray[i]);
-        }
+            console.log(playerSpriteArray[i]); //sprites vertical position on the sprite sheet
+        } //end func
 
         function playerAnimation() {
-            playerXsource = playerSpriteArray[playerSpriteNum][0];
-            playerYsource = playerSpriteArray[playerSpriteNum][1];
+            playerXsource = playerSpriteArray[Math.floor(playerSpriteNum)][0];
+            playerYsource = playerSpriteArray[Math.floor(playerSpriteNum)][1];
 
-            playerSpriteNum++;
+            playerSpriteNum += aniFrameRate; // the sprites changes at a certain rate
 
             if (playerSpriteNum > 7) {
-                playerSpriteNum = 0;
-
+                playerSpriteNum =
+                    0; //if the sprite being used is the last sprite on the spritesheet go to the first sprite
             }
-        }
+        } //end fun
 
-        function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+        function drawSprite(img, sX, sY, sW, sH, dX, dY, dW,
+            dH) { // creates a sprite that can have an animation with parameters 
             canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
-        }
+        } // end func
 
-        function drawImg(src, x, y, w, h) {
+        function drawImg(src, x, y, w, h) { // creates a sprite with parameters 
             canvasContext.drawImage(src, x, y, w, h)
-        }
+        } // end func
 
         function keyPressed(evt) { //when key is pressed sets the key pressed to true
             console.log(evt.keyCode)
@@ -261,15 +262,15 @@
                 playerXpos += playerXspeed; //creates a barrier to the right for the player 
             }
             if (leftKeyPressed && playerXpos > canvas.width * .005) {
-                playerXpos -= playerXspeed;
+                playerXpos -= playerXspeed; //creates a barrier to the left for the player 
             }
             if (downKeyPressed && playerYpos < canvas.height * .8) {
-                playerYpos += playerYspeed;
+                playerYpos += playerYspeed; //creates a barrier on the bottom for the player 
             }
             if (upKeyPressed && playerYpos > canvas.height * .005) {
-                playerYpos -= playerYspeed;
+                playerYpos -= playerYspeed; //creates a barrier on the top for the player 
             }
-        } // end 
+        } // end func
 
         function drawEnemy() {
             enemies.forEach(function (e, i, array) {
@@ -280,7 +281,7 @@
         function makeEnemy() { // gets all info for each enemy and pushes into array
             var ENEMY_WIDTH = 30;
             var ENEMY_HEIGHT = 200;
-            var enemyXpos = Math.floor(Math.random() * (canvas.width- ENEMY_WIDTH));
+            var enemyXpos = Math.floor(Math.random() * (canvas.width - ENEMY_WIDTH));
             var enemyYpos = canvas.height + enemyCounter * (ENEMY_HEIGHT * 3); //sets enemy at random position
             enemyCounter++;
 
@@ -300,9 +301,9 @@
 
                 e.enemyYpos -= e.enemyYspeed;
                 if (e.enemyYpos < -500) {
-                    e.enemyXpos = Math.floor(Math.random() * (600-1)-1);
+                    e.enemyXpos = Math.floor(Math.random() * (600 - 1) - 1);
                     e.enemyYspeed = Math.floor(Math.random(i) * (enemyYspeed - 5) + 5);
-                    e.enemyYpos=enemyYpos
+                    e.enemyYpos = enemyYpos
                     score++; //sets enemy clones a random speed that's near the original speed
                 }
 
@@ -316,14 +317,14 @@
         } // end func
 
         function colorRect(x, y, w, h, c) { // creates a colored rectangle with parameters 
-                canvasContext.fillStyle = c;
-                canvasContext.fillRect(x, y, w, h);
-            } //end func
+            canvasContext.fillStyle = c;
+            canvasContext.fillRect(x, y, w, h);
+        } //end func
 
-            function colorText(msg, x, y, f, c) { // creates a colored text with parameters 
-                canvasContext.font = f;
-                canvasContext.fillStyle = c;
-                canvasContext.fillText(msg, x, y);
-            } //end func
+        function colorText(msg, x, y, f, c) { // creates a colored text with parameters 
+            canvasContext.font = f;
+            canvasContext.fillStyle = c;
+            canvasContext.fillText(msg, x, y);
+        } //end func
     </script>
 </body>
