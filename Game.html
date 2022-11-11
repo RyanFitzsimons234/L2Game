@@ -158,6 +158,11 @@
         var ENEMY_WIDTH = 30; // sets enemy width
         var ENEMY_HEIGHT = 200; // sets enemy height
 
+        var statsXsource = 25;
+        var statsYsource = 25;
+        const STATS_WIDTH = 550;
+        const STATS_HEIGHT = 35;
+
         function mainloop() {
             if (playing) {
                 drawImg(background1, 0, 0, canvas.width, canvas.height); // makes the canvas
@@ -180,9 +185,10 @@
                 colorText('score: ' + score, 10, 20, '20px Arial', 'white') //allows the user to see the score
             } else {
                 drawImg(endscreen1, 0, 0, canvas.width * 1.6, canvas.height); // makes the death screen
-                colorRect(25, 25, 550, 35, 'black'); //makes a black background for the player's stats
+                colorRect(statsXsource, statsYsource, STATS_WIDTH, STATS_HEIGHT, 'black'); //makes a black background for the player's stats
                 colorText(username + ', you scored ' + score + ' on the ' + diffcultyname + ' difficulty', 50, 50,
                     '22.5px Corbel', 'red') //shows the player's stats
+                    alert("Press Control R, if you want to reset");// tells the player to reload the page to play again
             }
         } //end func 
 
